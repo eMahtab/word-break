@@ -71,5 +71,28 @@ class Solution {
 }
 ```
 
+# Implementation 3 : Dynamic Programming
+```java
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        Set<String> wordDictSet=new HashSet(wordDict);
+        boolean[] isWordBreak = new boolean[s.length()+1];
+        isWordBreak[0] = true;
+        
+        for(int i = 1; i <= s.length(); i++) {
+            for(int j = 0; j < i; j++) {
+                if(!isWordBreak[j])
+                    continue;
+                if(wordDictSet.contains(s.substring(j,i))) {
+                    isWordBreak[i] = true;
+                    break;
+                }
+            }
+        }
+        return isWordBreak[s.length()];
+    }
+}
+```
+
 # References :
-1. https://www.youtube.com/watch?v=hLQYQ4zj0qg
+1. https://www.youtube.com/watch?v=hLQYQ4zj0qg (Very good explanation)
