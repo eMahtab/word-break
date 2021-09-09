@@ -43,17 +43,23 @@ After `car` is matched the updated string will become just `s` and our program w
 ```java
 class Solution {
     public boolean wordBreak(String s, List<String> wordDict) {
-        return word_Break(s, new HashSet(wordDict), 0);
+        if(s == null)
+            return false;
+        // Add the dictionary words to a set for faster lookup
+        Set<String> set = new HashSet<>();
+        for(String str : wordDict)
+            set.add(str);
+        
+        return helper(s, set);
     }
     
-    private boolean word_Break(String s, Set<String> wordDict, int start) {
-        if (start == s.length()) {
+    private boolean helper(String s, Set<String> set) {
+        if(s.length() == 0)
             return true;
-        }
-        for (int end = start + 1; end <= s.length(); end++) {
-            if (wordDict.contains(s.substring(start, end)) && word_Break(s, wordDict, end)) {
+        for(int i = 0; i < s.length(); i++) {
+            String s1 = s.substring(0, i+1);
+            if(set.contains(s1) && helper(s.substring(i+1), set))
                 return true;
-            }
         }
         return false;
     }
