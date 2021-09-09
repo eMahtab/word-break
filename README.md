@@ -27,11 +27,17 @@ Input: s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
 Output: false
 ```
 
-## Thought Process :
+## Initial Thought Process : Will not work
 Try to match dictionary words in the given string, if the dictionary word matches, update the given string by removing the matched dictionary word.
 Since we can use same dictionary word multiple times to create the given string, try to find a match of the dictionary word in the given string as many times as we can.
 If the given string becomes an empty string after update, it means we can create the given string from the given dictionary words, so we return true.   
 
+But soon we realize, that this approach is not going to work.
+```
+String s "cars"  ,  wordDict = ["car","ca","rs"]
+
+After `car` is matched the updated string will become just `s` and our program will return false, since there is no single `s` in wordDict.
+```
 
 # Implementation 1 : Recursive (Time Limit Exceeded 😀)
 ```java
