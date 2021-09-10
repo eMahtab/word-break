@@ -70,21 +70,30 @@ class Solution {
 ```java
 class Solution {
     public boolean wordBreak(String s, List<String> wordDict) {
-        return word_Break(s, new HashSet(wordDict), 0, new Boolean[s.length()]);
+        if(s == null)
+            return false;
+        // Add the dictionary words to a set for faster lookup
+        Set<String> set = new HashSet<>();
+        for(String str : wordDict)
+            set.add(str);
+        Map<String,Boolean> map = new HashMap<>();
+        return helper(s, set, map);
     }
-    public boolean word_Break(String s, Set<String> wordDict, int start, Boolean[] memo) {
-        if (start == s.length()) {
+    
+    private boolean helper(String s, Set<String> set, Map<String, Boolean> map) {
+        if(s.length() == 0)
             return true;
-        }
-        if (memo[start] != null) {
-            return memo[start];
-        }
-        for (int end = start + 1; end <= s.length(); end++) {
-            if (wordDict.contains(s.substring(start, end)) && word_Break(s, wordDict, end, memo)) {
-                return memo[start] = true;
+        if(map.containsKey(s))
+            return map.get(s);
+        for(int i = 0; i < s.length(); i++) {
+            String s1 = s.substring(0, i+1);
+            if(set.contains(s1) && helper(s.substring(i+1), set, map)) {
+                map.put(s, true);
+                return true;
             }
         }
-        return memo[start] = false;
+        map.put(s, false);
+        return false;
     }
 }
 ```
