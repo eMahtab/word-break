@@ -108,9 +108,7 @@ class Solution {
         
         for(int i = 1; i <= s.length(); i++) {
             for(int j = 0; j < i; j++) {
-                if(!isWordBreak[j])
-                    continue;
-                if(wordDictSet.contains(s.substring(j,i))) {
+                if(isWordBreak[j] && wordDictSet.contains(s.substring(j,i))) {
                     isWordBreak[i] = true;
                     break;
                 }
